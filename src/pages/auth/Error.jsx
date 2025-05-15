@@ -50,10 +50,10 @@ const Error = () => {
       The requested page does not exist.
     </Typography>
     <Button
-      onClick={()=>{navigate(LINKS.DASHBOARD)}}
+      onClick={()=>{navigate(LINKS.AUTH_LOGIN)}}
       sx={{ mt: 2 }}
     >
-      Goto Dashboard
+      Go to Login
     </Button>
   </Container>
 </Box>
