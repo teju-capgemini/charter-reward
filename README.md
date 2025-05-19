@@ -12,16 +12,15 @@ useMemo for calculateMonthlyPoints()and calculateTotalPoint to avoid re-render
 Data can filtered out by monthly and yearly
 monthly and total points are calculated by amount
 
-
-![Screenshot 2025-05-16 000858](https://github.com/user-attachments/assets/fb679ad7-a429-4150-b9d3-c460e6ceb77a)
+![Screenshot 2025-05-19 121316](https://github.com/user-attachments/assets/33b44041-4482-4064-8ec7-b7304e178f4d)
 
 when click on Action button particular customer transaction details are shown on modal. dynamic details are as below.
 
-![Screenshot 2025-05-16 001704](https://github.com/user-attachments/assets/41d9e97e-9cf3-4359-804f-22c418687966)
+![Screenshot 2025-05-19 121432](https://github.com/user-attachments/assets/253dca34-0ecf-4eb1-baa2-97306d98b080)
 
 Test Cases are added for common functions
 
-![Screenshot 2025-05-15 235511](https://github.com/user-attachments/assets/2c8f458d-b049-4138-bef0-7de609901adc)
+![Screenshot 2025-05-19 120757](https://github.com/user-attachments/assets/e9ca3a76-0ec6-45ee-873d-829f0a0acaae)
 
 added Prop Validation by using PropsType for each component which has Props are passed.
 camelCase naming conventions are followed, code splitted in multiple common components, With modular folder structure
