@@ -1,14 +1,14 @@
 import axios from "axios";
-import axiosInstance from "../interceptor/axiosInstance"
+import axiosInstance from "../interceptor/axiosInstance";
 import { toast } from "react-toastify";
 
 const catchMethod = (err) => {
-    toast.error(err.message)
+  toast.error(err.message);
 };
 
 const get = async (url, queryData = {}) => {
   return await axiosInstance
-    .get(url, { params: queryData, ...({}), timeout: 1000000 })
+    .get(url, { params: queryData, ...{}, timeout: 1000000 })
     .then(async (response) => {
       return await Promise.resolve(response.data);
     })
@@ -42,8 +42,7 @@ const put = async (url, uploadHeader, queryData = {}) => {
     });
 };
 
-
-const s3Upload = async (url,  queryData = {}) => {
+const s3Upload = async (url, queryData = {}) => {
   return await axios
     .put(url, queryData)
     .then((response) => {
@@ -54,8 +53,6 @@ const s3Upload = async (url,  queryData = {}) => {
       return Promise.reject(error);
     });
 };
-
-
 
 const patch = async (url, queryData = {}) => {
   return await axiosInstance
@@ -81,4 +78,4 @@ const httpDelete = async (url, queryData = {}) => {
     });
 };
 
-export { get, post, put, patch, httpDelete,s3Upload };
+export { get, post, put, patch, httpDelete, s3Upload };

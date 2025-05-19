@@ -1,15 +1,19 @@
 import React, { useMemo, useState } from "react";
 import styles from "../pages/module/Dashboard/style.module.css";
-import { customerTableColumn } from "../constant";
+import { customerTableColumn, rows } from "../constant";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { IconButton } from "@mui/material";
-import CustomModal from "./CustomModal";
-import { calculateMonthlyPoints, calculateTotalPoints, getMonthInWord } from "../util/commonFunctions";
+import CustomModal from "./customModal";
+import {
+  calculateMonthlyPoints,
+  calculateTotalPoints,
+  getMonthInWord,
+} from "../util/commonFunctions";
 import PropTypes from "prop-types";
 
 const TransactionTable = ({ transactions }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(15);
+  const [rowsPerPage, setRowsPerPage] = useState(rows);
   const [openModal, setOpenModal] = useState(false);
   const [custTransactionDetails, setCustTransactionDetails] = useState({});
 
@@ -41,10 +45,9 @@ const TransactionTable = ({ transactions }) => {
     setOpenModal(true);
     setCustTransactionDetails(custTransaction);
   };
-  console.log('Transaction table transaction', transactions);
   return (
-    <div style={{ overflowX: "auto", padding:20 }}>
-      <table style={{ width: "100%", borderCollapse: "collapse" }}>
+    <div className={styles.container}>
+      <table className={styles.tableContainer}>
         <tbody>
           <tr>
             {customerTableColumn.map((col, i) => (
@@ -64,7 +67,9 @@ const TransactionTable = ({ transactions }) => {
                     : styles.tableRowStyleOdd
                 }
               >
-                <td className={styles.tableCellStyle}>{(currentPage-1) * rowsPerPage + i + 1}</td>
+                <td className={styles.tableCellStyle}>
+                  {(currentPage - 1) * rowsPerPage + i + 1}
+                </td>
                 <td className={styles.tableCellStyle}>
                   {transaction.customerName}
                 </td>
@@ -78,7 +83,10 @@ const TransactionTable = ({ transactions }) => {
                 <td className={styles.tableCellStyle}>
                   {transaction.totalPoints}
                 </td>
-                <td className={styles.tableCellStyle} style={{textAlign: 'center'}}>
+                <td
+                  className={styles.tableCellStyle}
+                  style={{ textAlign: "center" }}
+                >
                   <IconButton
                     onClick={() =>
                       showCustomerTransaction(transaction.transactionId)
@@ -92,47 +100,59 @@ const TransactionTable = ({ transactions }) => {
         </tbody>
       </table>
 
-      <CustomModal open={openModal} setOpen={setOpenModal} transaction={custTransactionDetails}/>
+      <CustomModal
+        open={openModal}
+        setOpen={setOpenModal}
+        transaction={custTransactionDetails}
+      />
       <div className={styles.footer}>
         <div>
-           <label>Rows per page : </label>
-          <select className={styles.dropdown} value={rowsPerPage} onChange={(e)=>{setRowsPerPage(e.target.value)}}>
-            {
-              [5,15,25,50].map((each)=>(
-                <option value={each}>{each}</option> 
-              ))
-            }
-           
+          <label className={styles.filterText}>Rows per page : </label>
+          <select
+            className={styles.dropdown}
+            value={rowsPerPage}
+            onChange={(e) => {
+              setRowsPerPage(e.target.value);
+            }}
+          >
+            {[5, 15, 25, 50].map((each) => (
+              <option value={each}>{each}</option>
+            ))}
           </select>
         </div>
-      <div className={styles.pagination}>
-                <button onClick={() => handleClick("prev")}>Previous</button>
-               {" "}
-        <span>
-          Page {currentPage} of{" "}
-          {Math.ceil(memoizeTransactions.length / rowsPerPage)}
-        </span>
-                <button onClick={() => handleClick("next")}>Next</button>
-             {" "}
-      </div>
+        <div className={styles.pagination}>
+          <button className={currentPage === 1 ? styles.disabledButton : styles.enableButton} onClick={() => handleClick("prev")} disabled={currentPage === 1}>Previous</button>{" "}
+          <span className={styles.filterText}>
+            Page {currentPage} of{" "}
+            {Math.ceil(memoizeTransactions.length / rowsPerPage)}
+          </span>
+          <button
+            disabled={
+              currentPage >= Math.ceil(memoizeTransactions.length / rowsPerPage)
+            }
+            className={currentPage >= Math.ceil(memoizeTransactions.length / rowsPerPage) ? styles.disabledButton: styles.enableButton}
+            onClick={() => handleClick("next")}
+          >
+            Next
+          </button>{" "}
+        </div>
       </div>
     </div>
   );
 };
 
 export const transactionPropType = PropTypes.shape({
-  customerId: PropTypes.number.isRequired,
-  customerName: PropTypes.string.isRequired,
-  transactionId: PropTypes.string.isRequired,
-  amount: PropTypes.number.isRequired,
-  date: PropTypes.string.isRequired, // ISO date string
+  customerId: PropTypes.number.isRequired,
+  customerName: PropTypes.string.isRequired,
+  transactionId: PropTypes.string.isRequired,
+  amount: PropTypes.number.isRequired,
+  date: PropTypes.string.isRequired, // ISO date string
 });
 
 export const transactionsArrayPropType = PropTypes.arrayOf(transactionPropType);
 
-
 TransactionTable.propTypes = {
-  transactions: transactionsArrayPropType.isRequired,
+  transactions: transactionsArrayPropType.isRequired,
 };
 
 export default TransactionTable;

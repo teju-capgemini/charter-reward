@@ -49,9 +49,8 @@ const Login = () => {
         await schema.validate(formData);
         localStorage.setItem("authToken", "This is user is authorized");
         navigate("/dashboard");
-      }
-      else{
-        toast.error('Please Enter Correct Credentials.')
+      } else {
+        toast.error("Please Enter Correct Credentials.");
       }
     } catch (error) {
       toast.error("Login failed. Please re-check your credentials.");

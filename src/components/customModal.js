@@ -1,6 +1,4 @@
-import * as React from "react";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import styles from "../pages/module/Dashboard/style.module.css";
@@ -13,7 +11,8 @@ const style = {
   transform: "translate(-50%, -50%)",
   width: 400,
   bgcolor: "background.paper",
-  border: "2px solid #000",
+  border: "1px solid #000",
+  borderRadius: 5,
   boxShadow: 24,
   p: 4,
 };
@@ -21,7 +20,6 @@ const style = {
 export default function CustomModal({ open, setOpen, transaction }) {
   const handleClose = () => setOpen(false);
   return (
-    <div>
       <Modal
         open={open}
         onClose={handleClose}
@@ -29,20 +27,20 @@ export default function CustomModal({ open, setOpen, transaction }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+          <>
+            <Typography fontWeight='bold' className={styles.modalHeading}>Transaction Details</Typography>
+          </>
           <div className={styles.modalRow}>
             <Typography
               id="modal-modal-title"
-              variant="h6"
-              component="h7"
-              style={{ fontWeight: "bold" }}
+              fontWeight="bold"
+              className={styles.modalTitle}
             >
               Customer Name :
             </Typography>
             <Typography
               id="modal-modal-description"
-              variant="h6"
-              component="h7"
-              style={{ marginLeft: 5 }}
+               className={styles.modalDisc}
             >
               {transaction.customerName}
             </Typography>
@@ -51,17 +49,14 @@ export default function CustomModal({ open, setOpen, transaction }) {
           <div className={styles.modalRow}>
             <Typography
               id="modal-modal-title"
-              variant="h6"
-              component="h7"
-              style={{ fontWeight: "bold" }}
+              fontWeight="bold"
+               className={styles.modalTitle}
             >
               Amount :
             </Typography>
             <Typography
               id="modal-modal-description"
-              variant="h6"
-              component="h7"
-              style={{ marginLeft: 5 }}
+               className={styles.modalDisc}
             >
               {transaction.amount}
             </Typography>
@@ -70,17 +65,14 @@ export default function CustomModal({ open, setOpen, transaction }) {
           <div className={styles.modalRow}>
             <Typography
               id="modal-modal-title"
-              variant="h6"
-              component="h7"
-              style={{ fontWeight: "bold" }}
+              fontWeight="bold"
+               className={styles.modalTitle}
             >
               Date :
             </Typography>
             <Typography
               id="modal-modal-description"
-              variant="h6"
-              component="h7"
-              style={{ marginLeft: 5 }}
+               className={styles.modalDisc}
             >
               {transaction.date}
             </Typography>
@@ -89,17 +81,14 @@ export default function CustomModal({ open, setOpen, transaction }) {
           <div className={styles.modalRow}>
             <Typography
               id="modal-modal-title"
-              variant="h6"
-              component="h7"
-              style={{ fontWeight: "bold" }}
+              fontWeight="bold"
+               className={styles.modalTitle}
             >
               Monthly Points :
             </Typography>
             <Typography
               id="modal-modal-description"
-              variant="h6"
-              component="h7"
-              style={{ marginLeft: 5 }}
+               className={styles.modalDisc}
             >
               {transaction.monthlyPoints}
             </Typography>
@@ -108,38 +97,34 @@ export default function CustomModal({ open, setOpen, transaction }) {
           <div className={styles.modalRow}>
             <Typography
               id="modal-modal-title"
-              variant="h6"
-              component="h7"
-              style={{ fontWeight: "bold" }}
+              fontWeight="bold"
+               className={styles.modalTitle}
             >
               Total Points :
             </Typography>
             <Typography
               id="modal-modal-description"
-              variant="h6"
-              component="h7"
-              style={{ marginLeft: 5 }}
+               className={styles.modalDisc}
             >
               {transaction.totalPoints}
             </Typography>
           </div>
         </Box>
       </Modal>
-    </div>
   );
 }
 
 CustomModal.propTypes = {
-  open: PropTypes.bool,
-  setOpen: PropTypes.func,
+  open: PropTypes.bool.isRequired,
+  setOpen: PropTypes.func.isRequired,
   transaction: PropTypes.shape({
     customerId: PropTypes.number,
-    customerName: PropTypes.string,
+    customerName: PropTypes.string.isRequired,
     transactionId: PropTypes.string,
-    amount: PropTypes.number,
-    date: PropTypes.string,
+    amount: PropTypes.number.isRequired,
+    date: PropTypes.string.isRequired,
     customizeDate: PropTypes.string,
-    monthlyPoints:  PropTypes.number,
-    totalPoints: PropTypes.number
-  })
+    monthlyPoints: PropTypes.number.isRequired,
+    totalPoints: PropTypes.number.isRequired,
+  }),
 };
